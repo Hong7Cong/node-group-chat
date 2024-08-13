@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+  <%- include('../head'); %>
+</head> -->
+<body class="container">
+
+<!-- <header>
+  <%- include('../../partials/header'); %>
+</header> -->
+
+<main>
+  <div class="jumbotron">
+    <h1>List of players:</h1>
+        <table>
+            <% list_player.forEach((item) => { %>
+                <tr>
+                    <td> <%= item.name %> </td>
+                    <td> <%= item.handed %> </td>
+                    <td> <%= item.balance_usd_cents %> </td>
+                    <td> <%= item.is_active %> </td>
+                </tr>
+            <% }) %>
+        </table>
+  </div>
+
+</main>
+
+<footer>
+  <%- include('../../partials/footer'); %>
+</footer>
+
+</body>
+</html>

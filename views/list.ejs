@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('pages/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('partials/header'); %>
+</header>
+
+<main>
+  <div class="jumbotron">
+    <h1>List of group:</h1>
+        <!-- <table> -->
+            <% list_player.forEach((item) => { %>
+                <tr>
+                  <form name="roomjoin" action="/room?roomid='item'" method="post">
+                    <input type="hidden" name="sorting" value="desc">
+                    <button type="submit" id="'item'">Join</button>
+                    <td> <%= item.name %> </td>  
+                    <!-- <td> <%= room_list %> </td>  -->
+                    <td>'s Room</td>
+                  </form>
+                    <br>
+                </tr>
+            <% }) %>
+        <!-- </table> -->
+  </div>
+</main>
+
+<script>
+  var form = document.getElementById('roomjoin');
+</script>
+
+<footer>
+  <%- include('partials/footer'); %>
+</footer>
+
+</body>
+</html>

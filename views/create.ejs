@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('pages/head'); %>
+</head>
+<body>
+
+<h2>Create new player</h2>
+
+<form action="/player" method="post">
+  <label for="roomname">Room name:</label><br>
+  <input type="text" id="roomname" name="roomname" value="John"><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to POST /room.</p>
+
+</body>
+</html>

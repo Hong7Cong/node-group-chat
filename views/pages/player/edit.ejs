@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../head'); %>
+</head>
+<body>
+
+<h2>Create new player</h2>
+
+<form action="/player" method="post" id="1234">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="Hong"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Nguyen"><br>
+  <label for="handed">Handed:</label><br>
+  <input type="text" id="handed" name="handed" value="L"><br>
+  <label for="is_active">Is active:</label><br>
+  <input type="text" id="is_active" name="is_active" value="true"><br>
+  <label for="balance_usd">balance (usd cent):</label><br>
+  <input type="text" id="balance_usd" name="balance_usd" value="1000"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to POST player/:pid.</p>
+
+</body>
+</html>

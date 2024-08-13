@@ -4,10 +4,11 @@
     <title>Simple Group Chat on Node.js</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font: 13px Helvetica, Arial; }
+        body { font: 23px Helvetica, Arial; }
         form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
         form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
-        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+        form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 1%; }
+        /* form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; } */
         #messages { list-style-type: none; margin: 0; padding: 0; }
         #messages li { padding: 5px 10px; }
         #messages li:nth-child(odd) { background: #eee; }
@@ -16,35 +17,43 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="/" method="POST" id="chatForm">
-      <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button>Send</button>
-    </form>
-    <script>
-            var socket = io.connect('http://localhost:8080');
+    <div style="width: 100%;">
+      <div style="width: 50%; height: 100px; float: left;"> 
+        <ul id="messages"></ul>
+        <form name="socketchat" action="/room" method="POST" id="socketchat">
+          <input id="txt" autocomplete="off" autofocus="on" oninput="isTyping()" placeholder="type your message here..." /><button>Send</button>
+        </form>
+        <script>
+                var form = document.getElementById('socketchat');
+                // form.action = '/room';
+                var socket = io.connect('http://localhost:8080/room');
 
-            // submit text message without reload/refresh the page
-            $('form').submit(function(e){
-                e.preventDefault(); // prevents page reloading
-                socket.emit('chat_message', $('#txt').val());
-                $('#txt').val('');
-                return false;
-            });
+                // submit text message without reload/refresh the page
+                $('form').submit(function(e){
+                    e.preventDefault(); // prevents page reloading
+                    socket.emit('chat_message', $('#txt').val());
+                    $('#txt').val('');
+                    return false;
+                });
+                
+                // append the chat text message
+                socket.on('chat_message', function(msg){
+                    $('#messages').append($('<li>').html(msg));
+                });
 
-            // append the chat text message
-            socket.on('chat_message', function(msg){
-                $('#messages').append($('<li>').html(msg));
-            });
+                // append text if someone is online
+                socket.on('is_online', function(username) {
+                    $('#messages').append($('<li>').html(username));
+                });
 
-            // append text if someone is online
-            socket.on('is_online', function(username) {
-                $('#messages').append($('<li>').html(username));
-            });
-
-            // ask username
-            var username = prompt('Please tell me your name');
-            socket.emit('username', username);
-
-    </script>
+                // ask username
+                var username = prompt('Please tell me your name');
+                socket.emit('username', username);
+        </script>
+    </div>
+    <div style="width: 50%; height: 100px; float: right;"> 
+      <embed type="text/html" src="leaderboard2.html" width=100% height=1000>
+    </div>
+  </div>
   </body>
 </html>
